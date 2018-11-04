@@ -30,13 +30,12 @@ Annoying Housemates Bot is based of [python-telegram-bot](https://github.com/pyt
 
 1. Fork the repo.
 2. If you don't have them installed, tnstall dependencies:
-run 
-'''
+run ```
 pip install -r requirements.txt
-'''
+```
 This should install python-telegram-bot, and numpy
 3. Replace the Bot token with your own. You can get this from @BotFather in Telegram by running on the chat the /token command.
 4. Run 
-'''
+```
 python main.py
-'''
+```
