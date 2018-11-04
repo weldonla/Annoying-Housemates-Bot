@@ -8,20 +8,20 @@ Introducing: *Annoying Housemates Bot*, a Telegram bot that can let you assign h
 Note: this project was made during [VandyHacks 2018](https://vandyhacks.org/). Huge shoutout to them!
 
 # Features
-- /help - shows the list of commands
+- `/help - shows the list of commands
 
-- /addme - include yourself to the schedule. IMPORTANT: if you haven't yet, do this first before you run the /schedule command for the first time!
+- `/addme` - include yourself to the schedule. IMPORTANT: if you haven't yet, do this first before you run the /schedule command for the first time!
 
-- /schedule - organize your cleaning rosters. Pick who gets to do what, and when in a week. IMPORTANT: make sure you have run /addme at least once before running /schedule for the first time!
+- `/schedule` - organize your cleaning rosters. Pick who gets to do what, and when in a week. IMPORTANT: make sure you have run '/addme' at least once before running '/schedule' for the first time!
 
-- /showschedule - shows all scheduled tasks
+- `/showschedule` - shows all scheduled tasks
 
-- /start - diplay welcome screen and message
+- `/start` - diplay welcome screen and message
 
 *ADMIN ONLY:*
-- /stop - kill the bot
+- `/stop` - kill the bot
 
-- /restart - reboot the bot when it becomes laggy
+- `/restart` - reboot the bot when it becomes laggy
 
 
 # Installation
@@ -29,12 +29,16 @@ Note: this project was made during [VandyHacks 2018](https://vandyhacks.org/). H
 Annoying Housemates Bot is based of [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) and the [Telegram API](https://core.telegram.org/bots/api).
 
 1. Fork the repo.
+
 2. If you don't have them installed, tnstall dependencies:
-run ```
+run 
+```
 pip install -r requirements.txt
 ```
-This should install python-telegram-bot, and numpy
-3. Replace the Bot token with your own. You can get this from @BotFather in Telegram by running on the chat the /token command.
+This should install python-telegram-bot, and numpy.
+
+3. Replace the Bot token with your own. You can get this from @BotFather in Telegram by running the `/token` command on the chat.
+
 4. Run 
 ```
 python main.py
