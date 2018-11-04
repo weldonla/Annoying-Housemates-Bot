@@ -5,6 +5,8 @@ Tired of cleaning your apartment you share with 3 other people by yourself? Sick
 
 Introducing: *Annoying Housemates Bot*, a Telegram bot that can let you assign house chores and set a day. Add the Annoying Housemates Bot to your house/apartment chat group on Telegram now, and you'll never be sorry for being passive aggressive to your irresponsible roommates!
 
+Note: this project was made for VandyHacks 2018. Huge shoutout to them!
+
 # Features
 - /help - shows the list of commands
 
