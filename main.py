@@ -3,6 +3,11 @@ import os
 import sys
 import numpy as np
 from threading import Thread
+# from my classes
+from day import Day
+from week import Week
+from chore import Chore
+from choreListEnum import ChoreListEnum
 # from the orginal Telegram API
 from telegram import InlineKeyboardButton, KeyboardButton
 from telegram import InlineKeyboardMarkup, ReplyKeyboardMarkup
@@ -14,18 +19,31 @@ from telegram.ext import ConversationHandler
 from telegram.ext import RegexHandler
 from telegram.ext import MessageHandler, Filters
 # we set up the logging module, so you will know when (and why) things don't work as expected (see Exception Handling in docs)
+from telegramToken import Token
 import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 listOfNames = []
 keyboardPerson = []
-updater = Updater(token='5278136330:AAF6xs9AY2-FjzdIa-ua4jo0ZqmPuZ0N-mo', use_context=True)
+updater = Updater(token=Token.token, use_context=True)
 dispatcher = updater.dispatcher
 
 NAME, DAY, TASK = range(3)
 
 singleSchedule = ""
 listOfSchedules = []
+
+week = Week(0, [Day(0, "Sunday"), Day(1, "Monday"), Day(2, "Tuesday"), Day(3, "Wednesday"), Day(4, "Thursday"), Day(5, "Friday"), Day(6, "Saturday")])
+week.days[0].setChores(
+    [
+        Chore(
+            1, "nat", ChoreListEnum.BEAT_FLOOR_MATS
+        ), 
+        Chore(
+            2, "james", ChoreListEnum.CLEAN_DISHES
+        )
+    ]
+)
 
 # get username of the last chat sender		
 def get_username(user):
@@ -74,16 +92,18 @@ def startMessage(update, context):
 
 # /help command
 def help(update, context):
-    updater.bot.send_message(chat_id=update.message.chat_id, text="Here's a couple of commands that you should use:\n\n- /help - shows the list of commands\n\n- /addme - include yourself to the schedule. IMPORTANT: if you haven't yet, do this first before you run the /schedule command for the first time!\n\n- /schedule - organize your cleaning rosters. Pick who gets to do what, and when in a week. IMPORTANT: make sure you have run /addme at least once before running /schedule for the first time!\n\n- /showschedule - shows all scheduled tasks\n\n/deleteschedule - remove a schedule\n\n- /start - diplay welcome screen and message\n\nADMIN ONLY:\n- /stop - kill the updater.\n- /restart - reboot the bot when it becomes laggy")
+    updater.bot.send_message(chat_id=update.message.chat_id, text="Do the work: " + week.days[0].chores[0].person + " - " + week.days[0].chores[0].name)
+    # updater.bot.send_message(chat_id=update.message.chat_id, text="Here's a couple of commands that you should use:\n\n- /help - shows the list of commands\n\n- /addme - include yourself to the schedule. IMPORTANT: if you haven't yet, do this first before you run the /schedule command for the first time!\n\n- /schedule - organize your cleaning rosters. Pick who gets to do what, and when in a week. IMPORTANT: make sure you have run /addme at least once before running /schedule for the first time!\n\n- /showschedule - shows all scheduled tasks\n\n/deleteschedule - remove a schedule\n\n- /start - diplay welcome screen and message\n\nADMIN ONLY:\n- /stop - kill the updater.\n- /restart - reboot the bot when it becomes laggy")
 
 #####################################################################################
 # /schedule
 def schedule(update, context):
-    keyboardPerson = [(np.asarray(listOfNames))]
+    keyboardPerson = [listOfNames]
     
     reply_markup_person = ReplyKeyboardMarkup(keyboardPerson, one_time_keyboard=True)
-    
-    updater.bot.send_message(chat_id=update.message.chat_id, text='Select person:', reply_markup=reply_markup_person)
+    logging.debug(reply_markup_person)
+    updater.bot.send_message(chat_id=update.message.chat_id, text="Select person:", reply_markup=reply_markup_person)
+    logging.debug(reply_markup_person)
     #update.message.reply_text(chat_id=update.message.chat_id, text="", 
     updater.bot.send_message(chat_id=update.message.chat_id, text=update.message.text)
     
@@ -93,19 +113,19 @@ def schedule(update, context):
         # do nothing
         count = count - 1
 
-    keyboardDay = [[InlineKeyboardButton("Monday"), InlineKeyboardButton("Tuesday"), InlineKeyboardButton("Wednesday")], 
-                    [InlineKeyboardButton("Thursday"), InlineKeyboardButton("Friday"), InlineKeyboardButton("Saturday")], 
-                    [InlineKeyboardButton("Sunday")]]
+    keyboardDay = [["Monday"],["Tuesday"],["Wednesday"], 
+                    ["Thursday"],["Friday"],["Saturday"], 
+                    ["Sunday"]]
     
     reply_markup_day = ReplyKeyboardMarkup(keyboardDay, one_time_keyboard=True)
-    updater.bot.send_message(chat_id=update.message.chat_id, text='Select day:', reply_markup=reply_markup_day)
+    updater.bot.send_message(chat_id=update.message.chat_id, text="Select day:", reply_markup=reply_markup_day)
 
     count = 100000000
     while count > 0:
         # do nothing
         count = count - 1
 
-    keyboardTask = [[InlineKeyboardButton("throw away trash"), InlineKeyboardButton("buy groceries")], [InlineKeyboardButton("do the dishes")]]
+    keyboardTask = [["throw away trash"], ["buy groceries"], ["do the dishes"]]
     reply_markup_task = ReplyKeyboardMarkup(keyboardTask, one_time_keyboard=True)
     updater.bot.send_message(chat_id=update.message.chat_id, text='Select task:', reply_markup=reply_markup_task)
     
