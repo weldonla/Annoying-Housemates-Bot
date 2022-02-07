@@ -19,7 +19,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 listOfNames = []
 keyboardPerson = []
-updater = Updater(token='689983690:AAGWebQs6h-7vRAIKK6mMDUk-arnxI3htmk')
+updater = Updater(token='5278136330:AAF6xs9AY2-FjzdIa-ua4jo0ZqmPuZ0N-mo', use_context=True)
 dispatcher = updater.dispatcher
 
 NAME, DAY, TASK = range(3)
@@ -52,7 +52,7 @@ def get_firstname(user):
     return name
 
 # function that adds name to scheduler list
-def add_name(bot, update):
+def add_name(update, context):
     username = get_username(update.message.from_user)
     name = get_firstname(update.message.from_user)
     if username not in listOfNames:
@@ -61,31 +61,31 @@ def add_name(bot, update):
     else:
         update.message.reply_text("Hey " + name + ", I like your enthusiasm, but you're already in the schedule. You good boy")
     
-    bot.send_message(chat_id=update.message.chat_id, text="Here's the current list of added housemates: (here's to go to /schedule)")
-    bot.send_message(chat_id=update.message.chat_id, text=listOfNames)
+    updater.bot.send_message(chat_id=update.message.chat_id, text="Here's the current list of added housemates: (here's to go to /schedule)")
+    updater.bot.send_message(chat_id=update.message.chat_id, text=listOfNames)
 
 # start() is a function that should process a specific type of update
 # sendMessage() - use this method to send messages
-def startMessage(bot, update):
+def startMessage(update, context):
     name = get_firstname(update.message.from_user)
-    bot.send_message(chat_id=update.message.chat_id, text="Hi " + name + ", welcome to Annoying Housemates Bot!")
-    bot.send_message(chat_id=update.message.chat_id, text="As your legit mom, I'm here to help you make sure you and your housemates clean after yourselves, help you schedule your house's duty roster, and try live decent lives.")
-    bot.send_message(chat_id=update.message.chat_id, text="Start by pressing the /help command.")
+    updater.bot.send_message(chat_id=update.message.chat_id, text="Hi " + name + ", welcome to Annoying Housemates Bot!")
+    updater.bot.send_message(chat_id=update.message.chat_id, text="As your legit mom, I'm here to help you make sure you and your housemates clean after yourselves, help you schedule your house's duty roster, and try live decent lives.")
+    updater.bot.send_message(chat_id=update.message.chat_id, text="Start by pressing the /help command.")
 
 # /help command
-def help(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text="Here's a couple of commands that you should use:\n\n- /help - shows the list of commands\n\n- /addme - include yourself to the schedule. IMPORTANT: if you haven't yet, do this first before you run the /schedule command for the first time!\n\n- /schedule - organize your cleaning rosters. Pick who gets to do what, and when in a week. IMPORTANT: make sure you have run /addme at least once before running /schedule for the first time!\n\n- /showschedule - shows all scheduled tasks\n\n/deleteschedule - remove a schedule\n\n- /start - diplay welcome screen and message\n\nADMIN ONLY:\n- /stop - kill the bot\n- /restart - reboot the bot when it becomes laggy")
+def help(update, context):
+    updater.bot.send_message(chat_id=update.message.chat_id, text="Here's a couple of commands that you should use:\n\n- /help - shows the list of commands\n\n- /addme - include yourself to the schedule. IMPORTANT: if you haven't yet, do this first before you run the /schedule command for the first time!\n\n- /schedule - organize your cleaning rosters. Pick who gets to do what, and when in a week. IMPORTANT: make sure you have run /addme at least once before running /schedule for the first time!\n\n- /showschedule - shows all scheduled tasks\n\n/deleteschedule - remove a schedule\n\n- /start - diplay welcome screen and message\n\nADMIN ONLY:\n- /stop - kill the updater.\n- /restart - reboot the bot when it becomes laggy")
 
 #####################################################################################
 # /schedule
-def schedule(bot, update):
+def schedule(update, context):
     keyboardPerson = [(np.asarray(listOfNames))]
     
     reply_markup_person = ReplyKeyboardMarkup(keyboardPerson, one_time_keyboard=True)
     
-    bot.send_message(chat_id=update.message.chat_id, text='Select person:', reply_markup=reply_markup_person)
+    updater.bot.send_message(chat_id=update.message.chat_id, text='Select person:', reply_markup=reply_markup_person)
     #update.message.reply_text(chat_id=update.message.chat_id, text="", 
-    bot.send_message(chat_id=update.message.chat_id, text=update.message.text)
+    updater.bot.send_message(chat_id=update.message.chat_id, text=update.message.text)
     
     
     count = 100000000
@@ -98,7 +98,7 @@ def schedule(bot, update):
                     [InlineKeyboardButton("Sunday")]]
     
     reply_markup_day = ReplyKeyboardMarkup(keyboardDay, one_time_keyboard=True)
-    bot.send_message(chat_id=update.message.chat_id, text='Select day:', reply_markup=reply_markup_day)
+    updater.bot.send_message(chat_id=update.message.chat_id, text='Select day:', reply_markup=reply_markup_day)
 
     count = 100000000
     while count > 0:
@@ -107,18 +107,18 @@ def schedule(bot, update):
 
     keyboardTask = [[InlineKeyboardButton("throw away trash"), InlineKeyboardButton("buy groceries")], [InlineKeyboardButton("do the dishes")]]
     reply_markup_task = ReplyKeyboardMarkup(keyboardTask, one_time_keyboard=True)
-    bot.send_message(chat_id=update.message.chat_id, text='Select task:', reply_markup=reply_markup_task)
+    updater.bot.send_message(chat_id=update.message.chat_id, text='Select task:', reply_markup=reply_markup_task)
     
 # /showschedule
-def showschedule(bot, update):
+def showschedule(update, context):
     for sched in listOfSchedules:
-        bot.send_message(chat_id=update.message.chat_id, text=sched)
+        updater.bot.send_message(chat_id=update.message.chat_id, text=sched)
 
 #/remove-schedule
 
 # /cancel
-def cancel(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text="Cancelling...done")
+def cancel(update, context):
+    updater.bot.send_message(chat_id=update.message.chat_id, text="Cancelling...done")
     return
 #end schedule
 #####################################################################################
@@ -126,7 +126,7 @@ def cancel(bot, update):
 
 # yell on command (ha!) and via inline mode
 from telegram import InlineQueryResultArticle, InputTextMessageContent
-def inline_caps(bot, update):
+def inline_caps(update, context):
     query = update.inline_query.query
     if not query:
         return
@@ -138,16 +138,16 @@ def inline_caps(bot, update):
             input_message_content=InputTextMessageContent(query.upper())
         )
     )
-    bot.answer_inline_query(update.inline_query.id, results)
+    updater.bot.answer_inline_query(update.inline_query.id, results)
 
 # command to stop the bot using /stop
-def stopBot(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text="Don't be annoying, be a good roommate. Stopping the bot now. Bye!")
+def stopBot(update, context):
+    updater.bot.send_message(chat_id=update.message.chat_id, text="Don't be annoying, be a good roommate. Stopping the bot now. Bye!")
     #sys.exit("exited!")
     updater.stop()
 
 # checks for name input and processes it
-def name_response(bot, update):
+def name_response(update, context):
     query = update.message.text
     reply = ""
     if query == "mujahidFA":
@@ -161,7 +161,7 @@ def name_response(bot, update):
     update.message.reply_text(reply)
     return ConversationHandler.END
 
-def day_response(bot, update):
+def day_response(update, context):
     query = update.message.text
     selected_day = query
     reply = "Selected day is " + selected_day
@@ -170,7 +170,7 @@ def day_response(bot, update):
     update.message.reply_text(reply)
     return ConversationHandler.END
 
-def task_response(bot, update):
+def task_response(update, context):
     query = update.message.text
     selected_task = query
     reply = "Selected task is " + selected_task
@@ -180,21 +180,21 @@ def task_response(bot, update):
     return ConversationHandler.END
 
 # a command filter to reply to all commands that were not recognized by the previous handlers.
-def unknown(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text="Sorry, I didn't understand that command. Press /help for list of commands.")
+def unknown(update, context):
+    updater.bot.send_message(chat_id=update.message.chat_id, text="Sorry, I didn't understand that command. Press /help for list of commands.")
 
 '''
 # function that echoes all messages
-def echoMessages(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text=update.message.text)
+def echoMessages(update, context):
+    updater.bot.send_message(chat_id=update.message.chat_id, text=update.message.text)
 
 # function that turns messages into caps
-def caps(bot, update, args):
+def caps(update, context, args):
     text_caps = ' '.join(args).upper()
-    bot.send_message(chat_id=update.message.chat_id, text=text_caps)
+    updater.bot.send_message(chat_id=update.message.chat_id, text=text_caps)
 '''
 '''
-def processInput(bot, update):
+def processInput(update, context):
     if update.message.photo:
         compute
 '''
@@ -256,12 +256,12 @@ def main():
         updater.stop()
         os.execl(sys.executable, sys.executable, *sys.argv)
 
-    def restart(bot, update):
+    def restart(update, context):
         update.message.reply_text('Bot is restarting...')
         Thread(target=stop_and_restart).start()
         update.message.reply_text("You're good to go!")
 
-    dispatcher.add_handler(CommandHandler('restart', restart, filters=Filters.user(username='@mujahidFA')))
+    dispatcher.add_handler(CommandHandler('restart', restart, filters=Filters.user(username='@weldonla')))
     #####################################################################################
 
    # IMPORTANT: must be added last!!!! unknown command
@@ -270,7 +270,7 @@ def main():
     '''
     done = False
     while done == False:
-        bot.send_message(chat_id=update.message.chat_id, text="Stopping the bot. Bye!")
+        updater.bot.send_message(chat_id=update.message.chat_id, text="Stopping the bot. Bye!")
     '''
     updater.start_polling()
     updater.idle()
