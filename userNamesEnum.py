@@ -1,2 +1,5 @@
 class UserNamesEnum:
-    user1 = "username"
+    Jake = "jacob_adam_weldon"
+    Luke = "weldonla"
+    Nat = "GnatOnTheWall"
+    James = "soManyFeathers"

@@ -1,0 +1,4 @@
+class ChoreStatusEnum:
+    INCOMPLETE = "INCOMPLETE"
+    COMPLETE = "COMPLETE"
+    SNOOZE = "SNOOZE"

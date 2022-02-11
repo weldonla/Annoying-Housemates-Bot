@@ -1,10 +1,25 @@
-from asyncio.windows_events import NULL
-
+from chore import Chore
 
 class Day:
-    def __init__(self, index, name):
+    index: int = None
+    name: str = None 
+    chores: list[Chore] = None
+
+    def __init__(self, index: int, name: str):
         self.index = index
         self.name = name
+        # self.chores = NULL
 
-    def setChores(self, chores):
-        self.chores = chores
+    def setChores(self, chores) -> None:
+        if(self.chores != None):
+            for chore in chores:
+                self.chores.append(chore)
+        else:
+            self.chores = chores
+
+    def getChoreString(self) -> str:
+        returnString = self.name + "\n\n"
+        for chore in self.chores:
+            returnString += "[" + str(chore.startTime) + "]: " + chore.getPeopleString() + " - " + chore.name + " <" + chore.status + ">\n"
+
+        return returnString

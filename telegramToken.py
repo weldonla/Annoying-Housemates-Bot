@@ -1,2 +1,2 @@
 class Token:
-    token = 'your token here'
+    token = '5278136330:AAF6xs9AY2-FjzdIa-ua4jo0ZqmPuZ0N-mo'

@@ -1,5 +1,6 @@
 class ChoreListEnum:
     EMPTY_DISHWASHER = "Empty Dishwasher"
+    FEED_AND_WATER_ANIMALS = "Feed and Water Animals"
     WATER_CHICKENS = "Water Chickens"
     WATER_COWS = "Water Cows"
     CHECK_ELECTRIC_FENCE = "Check Electric Fence"
@@ -28,4 +29,5 @@ class ChoreListEnum:
     SHOPPING = "Go Shopping"
     MOP_KITCHEN = "Mop Kitchen"
     CLEAN_HALF_BATH = "Clean Half Bath"
+    REMIND_PEOPLE = "Poke People To Do Their Action Items"
     ENTER_INCOME = "Enter Income"
