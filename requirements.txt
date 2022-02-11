@@ -1,6 +1,6 @@
 ###### Requirements without Version Specifiers ######
 numpy
-python-telegram-bot == 13.11
+python-telegram-bot
 
 ###### Requirements with Version Specifiers ######
 #numpy == 0.6.1             # Version Matching. Must be version 0.6.1
