@@ -96,7 +96,7 @@ def startMessage(update: Update, context: CallbackContext):
     updater.bot.send_message(chat_id=update.message.chat_id, text="Hey! On your journey you will need someone to remind you and your party of your current objectives.")
     updater.bot.send_message(chat_id=update.message.chat_id, text="Listen! Start by pressing the /help command.")
 
-    keepAwake(update, context)
+    # keepAwake(update, context)
     checkChores(update, context)
 
 # /help command

@@ -10,8 +10,8 @@ from week import Week
 class Schedule:
     weeks: list[Week] = None
     
-    def __init__(self):
-        self.loadWeeksWithChoreDays(self)
+    def __init__(self, weeks: list[Week] = None):
+        self.weeks = weeks
 
     def loadWeeksWithChoreDays(self) -> None:
         self.weeks = [
