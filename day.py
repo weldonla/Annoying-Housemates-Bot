@@ -18,8 +18,8 @@ class Day:
             self.chores = chores
 
     def getChoreString(self) -> str:
-        returnString = self.name + "\n\n"
+        returnString = "**" + self.name + "**" + "\n\n"
         for chore in self.chores:
-            returnString += "[" + str(chore.startTime) + "]: " + chore.getPeopleString() + " - " + chore.name + " <" + chore.status + ">\n"
+            returnString += chore.getChoreString() + "\n\n"
 
         return returnString

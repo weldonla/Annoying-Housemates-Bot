@@ -86,14 +86,14 @@ class Schedule:
         self.weeks[0].days[5].setChores(
             [
                 Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.SHOPPING, datetime(2022, 2, 7, 10, 0).time(), 180),
-                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.REMIND_PEOPLE, datetime(2022, 2, 7, 10, 0).time(), 180)
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.REMIND_PEOPLE, datetime(2022, 2, 7, 10, 0).time(), 180)
             ]
         )
-        idBase += 1
+        idBase += 2
         # 1st Sunday
         self.weeks[0].days[6].setChores(
             [
-                Chore(idBase + 3, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.ENTER_INCOME, datetime(2022, 2, 7, 12, 0).time(), 180)
+                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.ENTER_INCOME, datetime(2022, 2, 7, 12, 0).time(), 180)
             ]
         )
         idBase += 1
@@ -146,14 +146,14 @@ class Schedule:
         self.weeks[1].days[5].setChores(
             [
                 Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.SHOPPING, datetime(2022, 2, 7, 10, 0).time(), 180),
-                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.REMIND_PEOPLE, datetime(2022, 2, 7, 10, 0).time(), 180)
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.REMIND_PEOPLE, datetime(2022, 2, 7, 10, 0).time(), 180)
             ]
         )
-        idBase += 1
+        idBase += 2
         # 2nd Sunday
         self.weeks[1].days[6].setChores(
             [
-                Chore(idBase + 3, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.CHAPTER, datetime(2022, 2, 7, 15, 0).time(), 120)
+                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.CHAPTER, datetime(2022, 2, 7, 15, 0).time(), 120)
             ]
         )
         idBase += 1

@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from choreStatusEnum import ChoreStatusEnum
+from userNamesEnum import UserNamesEnum
 
 
 class Chore:
@@ -11,6 +12,7 @@ class Chore:
     status: str = ChoreStatusEnum.INCOMPLETE
     replyToMessageId: int = None
     lastSent: datetime = None
+    snoozeDuration: int = None
 
     def __init__(self, id: int, people: list[str], name: str, startTime: datetime.time, reminderIntervalMinutes: int):
         self.id = id
@@ -20,6 +22,9 @@ class Chore:
         self.reminderIntervalMinutes = reminderIntervalMinutes
         # self.replyToMessageId = NULL
         # self.lastSent = NULL
+
+    def setSnoozeDuration(self, duration: int or None):
+        self.snoozeDuration = duration
 
     def setReplyToMessageId(self, messageId) -> None:
         self.replyToMessageId = messageId
@@ -46,11 +51,11 @@ class Chore:
         self.replyToMessageId = messageId
 
     def isBitchable(self) -> bool:
-        snoozeMultiplier = 1
-        if self.status == ChoreStatusEnum.SNOOZE:
-            snoozeMultiplier = 2
+        interval = timedelta(minutes = self.reminderIntervalMinutes)
 
-        interval = timedelta(minutes = self.reminderIntervalMinutes*snoozeMultiplier)
+        if self.status == ChoreStatusEnum.SNOOZE:
+            if self.snoozeDuration is not None:
+                interval = timedelta(minutes = self.snoozeDuration*60)
 
         if self.lastSent + interval < datetime.now():
             return True
@@ -65,9 +70,23 @@ class Chore:
                 returnString += ", "
         
         return returnString
+
+    def getPeopleShortHandString(self) -> str:
+        returnString = ""
+        userNamesEnum = UserNamesEnum()
+        for x in range(len(self.people)):
+            returnString += userNamesEnum.getShortHand(self.people[x])
+            if x < len(self.people) - 1:
+                returnString += ", "
+        
+        return returnString
     
     def getPeopleAtString(self) -> str:
         returnString = ""
         for person in self.people:
             returnString += "@" + person + " "
         return returnString
+
+    def getChoreString(self) -> str:
+        time: str = str(self.startTime.hour) + ":" + str(self.startTime.minute)
+        return "[" + time + "] <" + self.status[0] + ">: " + self.getPeopleShortHandString() + " - " + self.name
