@@ -194,6 +194,11 @@ def snooze(update: Update, context: CallbackContext):
                 ],
                 [
                     InlineKeyboardButton(
+                        "18 Hours", 
+                        callback_data=json.dumps(CallBackQuery(TypeOfQueryEnum.SNOOZE, chore.id, 18).__dict__)),
+                ],
+                [
+                    InlineKeyboardButton(
                         "24 Hours", 
                         callback_data=json.dumps(CallBackQuery(TypeOfQueryEnum.SNOOZE, chore.id, 24).__dict__)),
                 ],

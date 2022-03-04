@@ -29,7 +29,7 @@ class Schedule:
                         Chore(idBase + 3, [UserNamesEnum.Luke], ChoreListEnum.CHECK_ELECTRIC_FENCE, datetime(2022, 2, 7, 7, 0).time(), 60),
                         Chore(idBase + 4, [UserNamesEnum.Luke], ChoreListEnum.CHECK_FOR_EGGS, datetime(2022, 2, 7, 7, 0).time(), 60),
                         Chore(idBase + 5, [UserNamesEnum.Luke], ChoreListEnum.FEED_COWS, datetime(2022, 2, 7, 12, 0).time(), 60),
-                        Chore(idBase + 6, [UserNamesEnum.Nat], ChoreListEnum.CHECK_MAIL, datetime(2022, 2, 7, 16, 0).time(), 60),
+                        Chore(idBase + 6, [UserNamesEnum.Luke], ChoreListEnum.CHECK_MAIL, datetime(2022, 2, 7, 16, 0).time(), 60),
                         Chore(idBase + 7, [UserNamesEnum.Luke], ChoreListEnum.FEED_AND_WATER_ANIMALS, datetime(2022, 2, 7, 17, 30).time(), 60),
                         Chore(idBase + 8, [UserNamesEnum.James], ChoreListEnum.BRING_IN_PUB_DISHES, datetime(2022, 2, 7, 19, 0).time(), 60),
                         Chore(idBase + 9, [UserNamesEnum.James, UserNamesEnum.Nat], ChoreListEnum.CLEAN_DISHES, datetime(2022, 2, 7, 22, 0).time(), 60),
