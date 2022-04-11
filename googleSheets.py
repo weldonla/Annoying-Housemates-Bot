@@ -23,7 +23,7 @@ def setStatusById(status: ChoreStatusEnum, id: int):
     choresSpreadSheet = client.open('House Chores').get_worksheet_by_id(0)
     df = pd.DataFrame.from_records(get_as_dataframe(choresSpreadSheet)) 
 
-    df.loc[id, "status"] = status
+    df.loc[id, ChoreDataStructure.STATUS] = status
     
     set_with_dataframe(choresSpreadSheet, df)
 
@@ -33,14 +33,15 @@ def resetDailyChores():
 
     for index in df.index:
         if(df.loc[index, ChoreDataStructure.IS_DAILY_CHORE] == True):
-            setStatusById(ChoreStatusEnum.INCOMPLETE, df.loc[index, "id"])
+            setStatusById(ChoreStatusEnum.INCOMPLETE, df.loc[index, ChoreDataStructure.ID])
     
 
 def main():
-    resetDailyChores()
-
-
-
+    # resetDailyChores()
+    choresSpreadSheet = client.open('House Chores').get_worksheet_by_id(0)
+    df = pd.DataFrame.from_records(get_as_dataframe(choresSpreadSheet)) 
+    pp.pprint(choresSpreadSheet)
+    pp.pprint(df)
 
 if __name__ == '__main__':
     main()

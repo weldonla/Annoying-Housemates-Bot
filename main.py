@@ -101,12 +101,11 @@ def complete(update: Update, context):
                 jsonCallback: str = json.dumps(callback.__dict__)
                 keyboard.append([
                     InlineKeyboardButton(
-                        "[" + str(chore.id) + "]: " + chore.getPeopleString() + " - " + chore.name + " <" + chore.status + ">", 
+                        chore.getChoreString(), 
                         callback_data=jsonCallback),
                 ])
         reply_markup = InlineKeyboardMarkup(keyboard, one_time_keyboard=True)
-        # update.message.reply_text("Which chore should be marked as complete?", reply_markup=reply_markup)
-        sendTelegramReplyMessage(update, context, "Which chore should be marked as complete?", reply_markup)
+        sendTelegramReplyMessage(update, context, "Hey! Which chore should be marked as complete?", reply_markup)
         
     else:
         print("   ReplyToMessageId: " + str(update.message.reply_to_message.message_id))
@@ -115,7 +114,6 @@ def complete(update: Update, context):
                 continue
             elif chore.replyToMessageId == update.message.reply_to_message.message_id:
                 chore.setStatusComplete()
-                # updater.bot.send_message(chat_id=update.message.chat_id, text=chore.name + " complete")
                 sendTelegramMessage(update, context, chore.name + " complete")
 
 # Handle reply for /complete command
@@ -136,7 +134,7 @@ def button(update: Update, context: CallbackContext) -> None:
                 chore.setStatusComplete()
                 query.answer()
                 query.edit_message_text(text=f"Completed Chore: {chore.name}")
-                print("   Chore: " + chore.name)
+                print("   Chore: " + chore.getChoreString())
 
     if callback.typeOfQuery == TypeOfQueryEnum.SNOOZE:
         for chore in chores:
@@ -145,7 +143,7 @@ def button(update: Update, context: CallbackContext) -> None:
                 chore.setSnoozeDuration(callback.data)
                 query.answer()
                 query.edit_message_text(text=f"Snoozing Chore: {chore.name} for {callback.data} hours")
-                print("   Chore: " + chore.name)
+                print("   Chore: " + chore.getChoreString())
 
 def customCallbackDecoder(callbackDict):
     return namedtuple('X', callbackDict.keys())(*callbackDict.values())
@@ -211,18 +209,19 @@ def snooze(update: Update, context: CallbackContext):
 # Routines
 #####################################################################################
 
-def keepAwake(update: Update, context: CallbackContext):
-    print("Function: keepAwake")
-    updater.bot.send_message(chat_id=-795340195, text="Fuck Me Sideways")
-    threading.Timer(9.0*60, keepAwake, args=(update, context)).start()
-
 def checkChores(update: Update, context: CallbackContext):
     chores: list[Chore] = []
+
+    # No bitch hours between 2 - 7 am
+    if (datetime.now().time() > datetime(2022, 2, 7, 2, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 7, 0).time()) :
+        threading.Timer(60.0*5, checkChores, args=(update, context)).start()
+        return
+
     for day in schedule.getChoreDaysList(): 
         chores += day.chores
 
     for chore in chores:
-        if chore.status == "COMPLETE":
+        if chore.status == ChoreStatusEnum.COMPLETE:
             continue
 
         if chore.lastSent == None:
@@ -232,7 +231,7 @@ def checkChores(update: Update, context: CallbackContext):
                 chore.setLastSent()
                 chore.setReplyToMessageId(sentMessage.message_id)
         elif chore.isBitchable():
-            print(chore.name + ": " + str(chore.lastSent) + "/" + str(chore.reminderIntervalMinutes))
+            print(str(chore.id) + " - " + chore.name + ": " + str(chore.lastSent) + "/" + str(chore.reminderIntervalMinutes))
             if chore.status == ChoreStatusEnum.SNOOZE:
                 chore.setStatusIncomplete()
                 chore.setSnoozeDuration(None)
