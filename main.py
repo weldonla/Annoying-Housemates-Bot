@@ -133,7 +133,7 @@ def button(update: Update, context: CallbackContext) -> None:
             if(chore.id == callback.choreId):
                 chore.setStatusComplete()
                 query.answer()
-                query.edit_message_text(text=f"Completed Chore: {chore.name}")
+                query.edit_message_text(text=f"Completed Chore: {chore.name} ({update.effective_user.first_name} @ {datetime.now().strftime('%I:%M %p')})")
                 print("   Chore: " + chore.getChoreString())
 
     if callback.typeOfQuery == TypeOfQueryEnum.SNOOZE:
@@ -227,7 +227,15 @@ def checkChores(update: Update, context: CallbackContext):
         if chore.lastSent == None:
             if datetime(2022, 2, 7, chore.startTime.hour, chore.startTime.minute).time() < datetime.now().time():
                 # sentMessage = updater.bot.send_message(chat_id=update.message.chat_id, text=chore.getPeopleAtString() + " - " + chore.name, timeout = 60)
-                sentMessage = sendTelegramMessage(update, context, chore.getPeopleAtString() + " - " + chore.name)
+                callback: CallBackQuery = CallBackQuery(TypeOfQueryEnum.COMPLETE, chore.id, None)
+                jsonCallback: str = json.dumps(callback.__dict__)
+                keyboard = [[
+                    InlineKeyboardButton(
+                        "complete", 
+                        callback_data=jsonCallback),
+                ]]
+                reply_markup = InlineKeyboardMarkup(keyboard, one_time_keyboard=True)
+                sentMessage = sendTelegramReplyMessage(update, context, chore.getPeopleAtString() + " - " + chore.name, reply_markup)
                 chore.setLastSent()
                 chore.setReplyToMessageId(sentMessage.message_id)
         elif chore.isBitchable():
@@ -237,7 +245,15 @@ def checkChores(update: Update, context: CallbackContext):
                 chore.setSnoozeDuration(None)
 
             # sentMessage = updater.bot.send_message(chat_id=update.message.chat_id, text=chore.getPeopleAtString() + " - " + chore.name, timeout = 60)
-            sentMessage = sendTelegramMessage(update, context, chore.getPeopleAtString() + " - " + chore.name)
+            callback: CallBackQuery = CallBackQuery(TypeOfQueryEnum.COMPLETE, chore.id, None)
+            jsonCallback: str = json.dumps(callback.__dict__)
+            keyboard = [[
+                InlineKeyboardButton(
+                    "complete", 
+                    callback_data=jsonCallback),
+            ]]
+            reply_markup = InlineKeyboardMarkup(keyboard, one_time_keyboard=True)
+            sentMessage = sendTelegramReplyMessage(update, context, chore.getPeopleAtString() + " - " + chore.name, reply_markup)
             chore.setLastSent()
             chore.setReplyToMessageId(sentMessage.message_id)
 
@@ -261,7 +277,7 @@ def sendTelegramReplyMessage(update: Update, context: CallbackContext, text: str
     for i in range(max_tries):
         try:
             time.sleep(0.3)
-            return update.message.reply_text(text, reply_markup=reply_markup)
+            return updater.bot.send_message(chat_id = update.message.chat_id, text = text, reply_markup = reply_markup, timeout = 60)
         except Exception:
             continue
 

@@ -32,3 +32,6 @@ class ChoreListEnum:
     CLEAN_HALF_BATH = "Clean Half Bath"
     REMIND_PEOPLE = "Poke People To Do Their Action Items"
     ENTER_INCOME = "Enter Income"
+    FEED_BEAR_BREAKFAST = "Feed Bear Breakfast"
+    FEED_BEAR_LUNCH = "Feed Bear Lunch"
+    FEED_BEAR_DINNER = "Feed Bear Dinner"

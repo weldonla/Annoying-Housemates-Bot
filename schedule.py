@@ -24,142 +24,145 @@ class Schedule:
             for day in week.days:
                 day.setChores(
                     [
-                        Chore(idBase + 1, [UserNamesEnum.Nat], ChoreListEnum.EMPTY_DISHWASHER, datetime(2022, 2, 7, 11, 0).time(), 120),
-                        Chore(idBase + 2, [UserNamesEnum.Luke], ChoreListEnum.FEED_AND_WATER_ANIMALS, datetime(2022, 2, 7, 7, 0).time(), 60),
-                        Chore(idBase + 3, [UserNamesEnum.Luke], ChoreListEnum.CHECK_ELECTRIC_FENCE, datetime(2022, 2, 7, 7, 0).time(), 60),
-                        Chore(idBase + 4, [UserNamesEnum.Luke], ChoreListEnum.CHECK_FOR_EGGS, datetime(2022, 2, 7, 7, 0).time(), 60),
-                        Chore(idBase + 6, [UserNamesEnum.Luke], ChoreListEnum.CHECK_MAIL, datetime(2022, 2, 7, 16, 0).time(), 120),
-                        Chore(idBase + 7, [UserNamesEnum.Luke], ChoreListEnum.FEED_AND_WATER_ANIMALS, datetime(2022, 2, 8, 17, 30).time(), 60),
-                        Chore(idBase + 8, [UserNamesEnum.James], ChoreListEnum.BRING_IN_PUB_DISHES, datetime(2022, 2, 7, 19, 0).time(), 120),
-                        Chore(idBase + 9, [UserNamesEnum.James, UserNamesEnum.Nat], ChoreListEnum.CLEAN_DISHES, datetime(2022, 2, 7, 22, 0).time(), 120),
+                        Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.EMPTY_DISHWASHER, datetime(2022, 2, 7, 9, 0).time(), 120),
+                        Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.FEED_BEAR_BREAKFAST, datetime(2022, 2, 7, 8, 0).time(), 120),
+                        Chore(idBase + 3, [UserNamesEnum.Luke], ChoreListEnum.FEED_AND_WATER_ANIMALS, datetime(2022, 2, 7, 7, 30).time(), 60),
+                        Chore(idBase + 4, [UserNamesEnum.Luke], ChoreListEnum.CHECK_ELECTRIC_FENCE, datetime(2022, 2, 7, 7, 30).time(), 60),
+                        Chore(idBase + 5, [UserNamesEnum.Luke], ChoreListEnum.CHECK_FOR_EGGS, datetime(2022, 2, 7, 7, 30).time(), 60),
+                        Chore(idBase + 6, [UserNamesEnum.James], ChoreListEnum.FEED_BEAR_LUNCH, datetime(2022, 2, 7, (2 + 12), 0).time(), 120),
+                        Chore(idBase + 7, [UserNamesEnum.Luke], ChoreListEnum.CHECK_MAIL, datetime(2022, 2, 7, (4 + 12), 0).time(), 120),
+                        Chore(idBase + 8, [UserNamesEnum.Luke], ChoreListEnum.FEED_AND_WATER_ANIMALS, datetime(2022, 2, 8, (5 + 12), 0).time(), 60),
+                        Chore(idBase + 9, [UserNamesEnum.James], ChoreListEnum.BRING_IN_PUB_DISHES, datetime(2022, 2, 7, (7 + 12), 0).time(), 120),
+                        Chore(idBase + 10, [UserNamesEnum.James], ChoreListEnum.FEED_BEAR_DINNER, datetime(2022, 2, 7, (8 + 12), 0).time(), 120),
+                        Chore(idBase + 11, [UserNamesEnum.James, UserNamesEnum.Nat], ChoreListEnum.CLEAN_DISHES, datetime(2022, 2, 7, (10 + 12), 0).time(), 120)
                     ]
                 )
 
-                idBase += 9
+                idBase += 11
 
         # 1st Monday
         self.weeks[0].days[0].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.Nat], ChoreListEnum.LAUNDRY, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 2, [UserNamesEnum.Nat], ChoreListEnum.KITCHEN_COUNTERS, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 3, [UserNamesEnum.Nat], ChoreListEnum.KITCHEN_STOVE, datetime(2022, 2, 7, 11, 0).time(), 6*60),
-                Chore(idBase + 4, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.CLEAN_BAR, datetime(2022, 2, 7, 17, 0).time(), 120),
-                Chore(idBase + 5, [UserNamesEnum.James], ChoreListEnum.EMPTY_COMPOST, datetime(2022, 2, 7, 12, 0).time(), 6*60)
-            ]
-        )
-        idBase += 5
-        # 1st Tuesday
-        self.weeks[0].days[1].setChores(
-            [
-                Chore(idBase + 1, [UserNamesEnum.Nat], ChoreListEnum.BEAT_FLOOR_MATS, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 2, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_KITCHEN, datetime(2022, 2, 7, 11, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke], ChoreListEnum.CLEAN_BAR, datetime(2022, 2, 7, (5 + 12), 0).time(), 120),
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.EMPTY_COMPOST, datetime(2022, 2, 7, 12, 0).time(), 12*60)
             ]
         )
         idBase += 2
-        # 1st Wednesday
-        self.weeks[0].days[2].setChores(
+        # 1st Tuesday
+        self.weeks[0].days[1].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_LIVING_R, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 2, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_DINING_R, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 3, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_HALLS, datetime(2022, 2, 7, 11, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.KITCHEN_COUNTERS, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60), 
+                Chore(idBase + 2, [UserNamesEnum.Nat], ChoreListEnum.DINING_R_TABLES, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60), 
+                Chore(idBase + 3, [UserNamesEnum.Nat], ChoreListEnum.LIVING_R_TABLES, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60),
+                Chore(idBase + 4, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_DINING_R, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60), 
+                Chore(idBase + 5, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_LIVING_R, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60), 
+                Chore(idBase + 6, [UserNamesEnum.Luke], ChoreListEnum.SWEEP_HALLS, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60),
+                Chore(idBase + 7, [UserNamesEnum.Luke], ChoreListEnum.BEAT_FLOOR_MATS, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60)
             ]
         )
-        idBase += 3
+        idBase += 7
+        # 1st Wednesday
+        # self.weeks[0].days[2].setChores(
+        #     [
+        #     ]
+        # )
+        # idBase += 3
         # 1st Thursday
         self.weeks[0].days[3].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.CLEAN_FULL_BATH, datetime(2022, 2, 7, 11, 0).time(), 6*60),
-                Chore(idBase + 2, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.BURN_TRASH, datetime(2022, 2, 7, 12, 0).time(), 6*60),
-                Chore(idBase + 3, [UserNamesEnum.James], ChoreListEnum.EMPTY_COMPOST, datetime(2022, 2, 7, 12, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke], ChoreListEnum.BURN_TRASH, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60),
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.EMPTY_COMPOST, datetime(2022, 2, 7, 12, 0).time(), 12*60)
             ]
         )
-        idBase += 3
+        idBase += 2
         # 1st Friday
         self.weeks[0].days[4].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.Nat], ChoreListEnum.DINING_R_TABLES, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 2, [UserNamesEnum.Nat], ChoreListEnum.LIVING_R_TABLES, datetime(2022, 2, 7, 11, 0).time(), 6*60),
-                Chore(idBase + 3, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.CLEAN_BAR, datetime(2022, 2, 7, 17, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke], ChoreListEnum.CLEAN_BAR, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60)
             ]
         )
-        idBase += 3
+        idBase += 1
         # 1st Saturday
         self.weeks[0].days[5].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.SHOPPING, datetime(2022, 2, 7, 10, 0).time(), 6*60),
-                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.REMIND_PEOPLE, datetime(2022, 2, 7, 10, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.SHOPPING, datetime(2022, 2, 7, 10, 0).time(), 12*60),
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.REMIND_PEOPLE, datetime(2022, 2, 7, 10, 0).time(), 12*60)
             ]
         )
         idBase += 2
         # 1st Sunday
         self.weeks[0].days[6].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.ENTER_INCOME, datetime(2022, 2, 7, 12, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.ENTER_INCOME, datetime(2022, 2, 7, 12, 0).time(), 12*60),
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.LAUNDRY, datetime(2022, 2, 7, (3 + 12), 0).time(), 12*60), 
+                Chore(idBase + 3, [UserNamesEnum.James], ChoreListEnum.CLEAN_FULL_BATH, datetime(2022, 2, 7, (3 + 12), 0).time(), 12*60),
+                Chore(idBase + 4, [UserNamesEnum.Luke], ChoreListEnum.CLEAN_HALF_BATH, datetime(2022, 2, 7, (3 + 12), 0).time(), 12*60),
+                Chore(idBase + 5, [UserNamesEnum.Nat], ChoreListEnum.KITCHEN_STOVE, datetime(2022, 2, 7, (3 + 12), 0).time(), 12*60),
+                Chore(idBase + 6, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_KITCHEN, datetime(2022, 2, 7, (3 + 12), 0).time(), 12*60), 
+                Chore(idBase + 7, [UserNamesEnum.Nat], ChoreListEnum.MOP_KITCHEN, datetime(2022, 2, 7, (3 + 12), 0).time(), 12*60)
             ]
         )
-        idBase += 1
+        idBase += 7
 
         # 2nd Monday
         self.weeks[1].days[0].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.Nat], ChoreListEnum.LAUNDRY, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 2, [UserNamesEnum.Nat], ChoreListEnum.KITCHEN_COUNTERS, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 3, [UserNamesEnum.Nat], ChoreListEnum.KITCHEN_STOVE, datetime(2022, 2, 7, 11, 0).time(), 6*60),
-                Chore(idBase + 4, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.CLEAN_BAR, datetime(2022, 2, 7, 17, 0).time(), 6*60),
-                Chore(idBase + 5, [UserNamesEnum.James], ChoreListEnum.EMPTY_COMPOST, datetime(2022, 2, 7, 12, 0).time(), 6*60)
-            ]
-        )
-        idBase += 5
-        # 2nd Tuesday
-        self.weeks[1].days[1].setChores(
-            [
-                Chore(idBase + 1, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_KITCHEN, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 2, [UserNamesEnum.Nat], ChoreListEnum.MOP_KITCHEN, datetime(2022, 2, 7, 11, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke], ChoreListEnum.CLEAN_BAR, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60),
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.EMPTY_COMPOST, datetime(2022, 2, 7, 12, 0).time(), 12*60)
             ]
         )
         idBase += 2
-        # 2nd Wednesday
-        self.weeks[1].days[2].setChores(
+        # 2nd Tuesday
+        self.weeks[1].days[1].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_LIVING_R, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 2, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_DINING_R, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 3, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_HALLS, datetime(2022, 2, 7, 11, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.KITCHEN_COUNTERS, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60), 
+                Chore(idBase + 2, [UserNamesEnum.Nat], ChoreListEnum.DINING_R_TABLES, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60), 
+                Chore(idBase + 3, [UserNamesEnum.Nat], ChoreListEnum.LIVING_R_TABLES, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60),
+                Chore(idBase + 4, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_DINING_R, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60), 
+                Chore(idBase + 5, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_LIVING_R, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60), 
+                Chore(idBase + 6, [UserNamesEnum.Luke], ChoreListEnum.SWEEP_HALLS, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60)
             ]
         )
-        idBase += 3
+        idBase += 6
+        # 2nd Wednesday
+        # self.weeks[1].days[2].setChores(
+        #     [
+        #     ]
+        # )
+        # idBase += 3
         # 2nd Thursday
         self.weeks[1].days[3].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.CLEAN_HALF_BATH, datetime(2022, 2, 7, 11, 0).time(), 6*60),
-                Chore(idBase + 2, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.BURN_TRASH, datetime(2022, 2, 7, 12, 0).time(), 6*60),
-                Chore(idBase + 3, [UserNamesEnum.James], ChoreListEnum.EMPTY_COMPOST, datetime(2022, 2, 7, 12, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke], ChoreListEnum.BURN_TRASH, datetime(2022, 2, 7, (4 + 12), 0).time(), 12*60),
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.EMPTY_COMPOST, datetime(2022, 2, 7, 12, 0).time(), 12*60)
             ]
         )
-        idBase += 3
+        idBase += 2
         # 2nd Friday
         self.weeks[1].days[4].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.Nat], ChoreListEnum.DINING_R_TABLES, datetime(2022, 2, 7, 11, 0).time(), 6*60), 
-                Chore(idBase + 2, [UserNamesEnum.Nat], ChoreListEnum.LIVING_R_TABLES, datetime(2022, 2, 7, 11, 0).time(), 6*60),
-                Chore(idBase + 3, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.CLEAN_BAR, datetime(2022, 2, 7, 17, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke], ChoreListEnum.CLEAN_BAR, datetime(2022, 2, 7, (4 + 12), 30).time(), 12*60)
             ]
         )
-        idBase += 3
+        idBase += 1
         # 2nd Saturday
         self.weeks[1].days[5].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.SHOPPING, datetime(2022, 2, 7, 10, 0).time(), 6*60),
-                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.REMIND_PEOPLE, datetime(2022, 2, 7, 10, 0).time(), 6*60)
+                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.SHOPPING, datetime(2022, 2, 7, 10, 0).time(), 12*60),
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.REMIND_PEOPLE, datetime(2022, 2, 7, 10, 0).time(), 12*60)
             ]
         )
         idBase += 2
         # 2nd Sunday
         self.weeks[1].days[6].setChores(
             [
-                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.CHAPTER, datetime(2022, 2, 7, 15, 0).time(), 60*24)
+                Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat, UserNamesEnum.Luke, UserNamesEnum.Jake], ChoreListEnum.CHAPTER, datetime(2022, 2, 7, (3 + 12), 0).time(), 60*24),
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.LAUNDRY, datetime(2022, 2, 7, (3 + 12), 0).time(), 12*60), 
+                Chore(idBase + 5, [UserNamesEnum.Nat], ChoreListEnum.KITCHEN_STOVE, datetime(2022, 2, 7, (3 + 12), 0).time(), 12*60),
+                Chore(idBase + 6, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_KITCHEN, datetime(2022, 2, 7, (3 + 12), 0).time(), 12*60)
             ]
         )
-        idBase += 1
+        idBase += 6
 
     def printWeeksWithChoreDays(self) -> None:
         for week in self.weeks:
