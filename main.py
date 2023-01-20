@@ -327,6 +327,8 @@ def main():
     def restart(update, context):
         update.message.reply_text('Bot is restarting...')
         Thread(target=stop_and_restart).start()
+        schedule = Schedule()
+        schedule.loadWeeksWithChoreDays()
         update.message.reply_text("You're good to go!")
 
     dispatcher.add_handler(CommandHandler('restart', restart, filters=Filters.user(username='@' + UserNamesEnum.Luke)))
