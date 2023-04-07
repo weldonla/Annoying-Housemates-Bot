@@ -13,15 +13,21 @@ class Chore:
     replyToMessageId: int = None
     lastSent: datetime = None
     snoozeDuration: int = None
+    isDailyChore: bool = None
+    firstSent: datetime = None
 
-    def __init__(self, id: int, people: list[str], name: str, startTime: datetime.time, reminderIntervalMinutes: int):
+    def __init__(self, id: int, people: list[str], name: str, startTime: datetime.time, reminderIntervalMinutes: int, isDailyChore: bool):
         self.id = id
         self.people = people
         self.name = name
         self.startTime = startTime
         self.reminderIntervalMinutes = reminderIntervalMinutes
+        self.isDailyChore = isDailyChore
         # self.replyToMessageId = NULL
         # self.lastSent = NULL
+
+    def setFirstSent(self, firstSentDate: datetime):
+        self.firstSent = firstSentDate
 
     def setSnoozeDuration(self, duration: int or None):
         self.snoozeDuration = duration

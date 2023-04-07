@@ -71,6 +71,8 @@ def get_firstname(user: User):
 # start() is a function that should process a specific type of update
 # sendMessage() - use this method to send messages
 def startMessage(update: Update, context: CallbackContext):
+    schedule.chatId = update.message.chat_id
+
     print("Function: startMessage")
     name = get_firstname(update.message.from_user)
     updater.bot.send_message(chat_id=update.message.chat_id, text="Hi " + name + ", I'm Navi, the Bitch Bot!")
@@ -148,6 +150,15 @@ def button(update: Update, context: CallbackContext) -> None:
 def customCallbackDecoder(callbackDict):
     return namedtuple('X', callbackDict.keys())(*callbackDict.values())
 
+def timeoutChores(update: Update, context: CallbackContext, chores: list[Chore]):
+    # aWeekAgo = datetime.now() - timedelta(days=7)
+    for chore in chores:
+        if(chore.isDailyChore and not chore.checkIsComplete() and chore.replyToMessageId is not None):
+            chore.setStatusComplete()
+            updateTelegramMessage(update, context, chore.replyToMessageId, f"Uncompleted Daily Chore: {chore.name}, {chore.getPeopleString()}")
+            print("  Uncompleted Chore: " + chore.getChoreString())
+
+
 # /showschedule
 def showdayschedule(update: Update, context: CallbackContext):
     choresString: str = ""
@@ -212,13 +223,15 @@ def snooze(update: Update, context: CallbackContext):
 def checkChores(update: Update, context: CallbackContext):
     chores: list[Chore] = []
 
+    for day in schedule.getChoreDaysList(): 
+        chores += day.chores
+
     # No bitch hours between 2 - 7 am
     if (datetime.now().time() > datetime(2022, 2, 7, 2, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 7, 0).time()) :
+        timeoutChores(update, context, chores)
         threading.Timer(60.0*5, checkChores, args=(update, context)).start()
         return
 
-    for day in schedule.getChoreDaysList(): 
-        chores += day.chores
 
     for chore in chores:
         if chore.status == ChoreStatusEnum.COMPLETE:
@@ -226,6 +239,9 @@ def checkChores(update: Update, context: CallbackContext):
 
         if chore.lastSent == None:
             if datetime(2022, 2, 7, chore.startTime.hour, chore.startTime.minute).time() < datetime.now().time():
+                if(chore.firstSent == None):
+                    chore.setFirstSent(datetime.now())
+
                 # sentMessage = updater.bot.send_message(chat_id=update.message.chat_id, text=chore.getPeopleAtString() + " - " + chore.name, timeout = 60)
                 callback: CallBackQuery = CallBackQuery(TypeOfQueryEnum.COMPLETE, chore.id, None)
                 jsonCallback: str = json.dumps(callback.__dict__)
@@ -269,6 +285,15 @@ def sendTelegramMessage(update: Update, context: CallbackContext, message: str) 
         try:
             time.sleep(0.3)
             return updater.bot.send_message(chat_id = update.message.chat_id, text = message, timeout = 60)
+        except Exception:
+            continue
+
+def updateTelegramMessage(update: Update, context: CallbackContext, messageId: int, message: str) -> Message:
+    max_tries: int = 10
+    for i in range(max_tries):
+        try:
+            time.sleep(0.3)
+            return updater.bot.edit_message_text(chat_id = update.message.chat_id, message_id=messageId, text=message, timeout = 60)
         except Exception:
             continue
 
