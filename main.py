@@ -308,6 +308,7 @@ def sendTelegramReplyMessage(update: Update, context: CallbackContext, text: str
 
 # command to stop the bot using /stop
 def stopBot(update: Update, context: CallbackContext):
+    print(f"stopped by {update.effective_user.first_name}")
     updater.bot.send_message(chat_id=update.message.chat_id, text="Don't be annoying, be a good roommate. Stopping the bot now. Bye!")
     #sys.exit("exited!")
     updater.stop()

@@ -47,3 +47,6 @@ class ChoreListEnum:
     CLEAN_PUB_FRIDGE = "Clean Pub Fridge"
     MOW_LAWN = "Mow Lawn"
     CLEAN_PUB_COUCH = "Clean Pub Couch"
+    LET_CHICKENS_OUT = "Let Chickens Out"
+    PEN_CHICKENS_UP = "Pen Chickens Up"
+    FEED_CROWS = "Feed Crows"

@@ -3,6 +3,8 @@ class UserNamesEnum:
     Luke = "weldonla"
     Nat = "GnatOnTheWall"
     James = "soManyFeathers"
+    Ike = "ikekruzick"
+    Ethan = "EthanKruz"
 
     def __init__(self) -> None:
         pass
@@ -16,3 +18,7 @@ class UserNamesEnum:
             return "NW"
         if userName == self.James:
             return "JVD"
+        if userName == self.Ike:
+            return "Ike"
+        if userName == self.Ethan:
+            return "Ethan"
