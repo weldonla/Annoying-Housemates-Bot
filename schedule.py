@@ -70,9 +70,12 @@ class Schedule:
         self.weeks[0].days[1].setChores(
             [
                 Chore(idBase + 1, [UserNamesEnum.James, UserNamesEnum.Nat], ChoreListEnum.COOK_DINNER, datetime(2022, 2, 7, (5 + 12), 30).time(), 4*60, False), 
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.SWEEP_KITCHEN, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
+                Chore(idBase + 3, [UserNamesEnum.Nat], ChoreListEnum.WIPE_DINING_ROOM_TABLES, datetime(2022, 2, 7, (5 + 12), 0).time(), 2*60, False),
+                Chore(idBase + 4, [UserNamesEnum.Nat], ChoreListEnum.WIPE_LIVING_ROOM_TABLES, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
             ]
         )
-        idBase += 1
+        idBase += 4
         # 1st Wednesday
         self.weeks[0].days[2].setChores(
             [
@@ -97,25 +100,19 @@ class Schedule:
                 Chore(idBase + 8, [UserNamesEnum.Nat], ChoreListEnum.BEAT_FLOOR_MATS, datetime(2022, 2, 7, (5 + 12), 0).time(), 2*60, False),
                 Chore(idBase + 9, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_LIVING_R, datetime(2022, 2, 7, (5 + 12), 0).time(), 2*60, False),
                 Chore(idBase + 10, [UserNamesEnum.Nat], ChoreListEnum.SWEEP_DINING_R, datetime(2022, 2, 7, (5 + 12), 0).time(), 2*60, False),
-                Chore(idBase + 11, [UserNamesEnum.Nat], ChoreListEnum.WIPE_DINING_ROOM_TABLES, datetime(2022, 2, 7, (5 + 12), 0).time(), 2*60, False),
-
-                # Not sure if i want to put these here (weekly tasks)
-                Chore(idBase + 12, [UserNamesEnum.James], ChoreListEnum.SWEEP_KITCHEN, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
-                Chore(idBase + 13, [UserNamesEnum.James], ChoreListEnum.BURN_TRASH, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
-                
-                Chore(idBase + 14, [UserNamesEnum.Nat], ChoreListEnum.WIPE_LIVING_ROOM_TABLES, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
             ]
         )
-        idBase += 14
+        idBase += 10
         # 1st Friday
         self.weeks[0].days[4].setChores(
             [
                 Chore(idBase + 1, [UserNamesEnum.Luke], ChoreListEnum.CLEAN_BAR, datetime(2022, 2, 7, (5 + 12), 0).time(), 1*60, False),
                 Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.TAKE_OUT_PUT_AWAY_PUB_DISHES, datetime(2022, 2, 7, (5 + 12), 30).time(), 1*60, False),
-                Chore(idBase + 3, [UserNamesEnum.James], ChoreListEnum.BRING_IN_PUB_DISHES, datetime(2022, 2, 7, (10 + 12), 30).time(), 1*60, False),
+                Chore(idBase + 3, [UserNamesEnum.James], ChoreListEnum.BURN_TRASH, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
+                Chore(idBase + 4, [UserNamesEnum.James], ChoreListEnum.BRING_IN_PUB_DISHES, datetime(2022, 2, 7, (10 + 12), 30).time(), 1*60, False),
             ]
         )
-        idBase += 3
+        idBase += 4
         # 1st Saturday
         self.weeks[0].days[5].setChores(
             [
@@ -150,10 +147,12 @@ class Schedule:
         self.weeks[1].days[1].setChores(
             [
                 Chore(idBase + 1, [UserNamesEnum.Luke], ChoreListEnum.CREATE_TASK_LIST, datetime(2022, 2, 7, (12), 30).time(), 24*60, False),
-                Chore(idBase + 2, [UserNamesEnum.James, UserNamesEnum.Nat], ChoreListEnum.COOK_DINNER, datetime(2022, 2, 7, (5 + 12), 30).time(), 4*60, False), 
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.SWEEP_KITCHEN, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
+                Chore(idBase + 3, [UserNamesEnum.Nat], ChoreListEnum.WIPE_LIVING_ROOM_TABLES, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
+                Chore(idBase + 4, [UserNamesEnum.James, UserNamesEnum.Nat], ChoreListEnum.COOK_DINNER, datetime(2022, 2, 7, (5 + 12), 30).time(), 4*60, False), 
             ]
         )
-        idBase += 2
+        idBase += 4
         # 2nd Wednesday
         self.weeks[1].days[2].setChores(
             [
@@ -164,23 +163,19 @@ class Schedule:
         # 2nd Thursday
         self.weeks[1].days[3].setChores(
             [
-                # Not sure if i want to put these here (weekly tasks)
-                Chore(idBase + 1, [UserNamesEnum.James], ChoreListEnum.SWEEP_KITCHEN, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
-                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.BURN_TRASH, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
-                
-                Chore(idBase + 3, [UserNamesEnum.Nat], ChoreListEnum.WIPE_LIVING_ROOM_TABLES, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
             ]
         )
-        idBase += 3
+        # idBase += 1
         # 2nd Friday
         self.weeks[1].days[4].setChores(
             [
                 Chore(idBase + 1, [UserNamesEnum.Luke], ChoreListEnum.CLEAN_BAR, datetime(2022, 2, 7, (5 + 12), 0).time(), 1*60, False),
-                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.TAKE_OUT_PUT_AWAY_PUB_DISHES, datetime(2022, 2, 7, (5 + 12), 30).time(), 1*60, False),
-                Chore(idBase + 3, [UserNamesEnum.James], ChoreListEnum.BRING_IN_PUB_DISHES, datetime(2022, 2, 7, (10 + 12), 30).time(), 1*60, False),
+                Chore(idBase + 2, [UserNamesEnum.James], ChoreListEnum.BURN_TRASH, datetime(2022, 2, 7, (5 + 12), 30).time(), 2*60, False),
+                Chore(idBase + 3, [UserNamesEnum.James], ChoreListEnum.TAKE_OUT_PUT_AWAY_PUB_DISHES, datetime(2022, 2, 7, (5 + 12), 30).time(), 1*60, False),
+                Chore(idBase + 4, [UserNamesEnum.James], ChoreListEnum.BRING_IN_PUB_DISHES, datetime(2022, 2, 7, (10 + 12), 30).time(), 1*60, False),
             ]
         )
-        idBase += 3
+        idBase += 4
         # 2nd Saturday
         self.weeks[1].days[5].setChores(
             [
