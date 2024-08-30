@@ -84,7 +84,7 @@ def startMessage(update: Update, context: CallbackContext):
 
 # /help command
 def help(update: Update, context: CallbackContext):
-    text="\n\nHey! Listen! Here's a couple of commands that you should use:\n\n- /complete - completes the chore of whatever message you reply to (if that message is the latest reminder for that chore). And brings up a button list if you're not replying to a task.\n\n- /snooze - doubles the bitch interval time for given chore for one bitch iteration.\n\n- /showdayschedule - shows all scheduled tasks for the day\n\n- /start - diplay welcome screen and message\n\nADMIN ONLY:\n- /stop - kill the updater.\n- /restart - reboot the bot when it becomes laggy"
+    text="\n\nHey! Listen! Here's a couple of commands that you should use:\n\n- /complete - completes the chore of whatever message you reply to (if that message is the latest reminder for that chore). And brings up a button list if you're not replying to a task.\n\n- /revert - uncompletes a chore that you accidentally marks as complete when replying to that chore.\n\n- /snooze - doubles the bitch interval time for given chore for one bitch iteration.\n\n- /showdayschedule - shows all scheduled tasks for the day\n\n- /start - diplay welcome screen and message\n\nADMIN ONLY:\n- /stop - kill the updater.\n- /restart - reboot the bot when it becomes laggy"
     # updater.bot.send_message(chat_id=update.message.chat_id, text="\n\nHey! Listen! Here's a couple of commands that you should use:\n\n- /complete - completes the chore of whatever message you reply to (if that message is the latest reminder for that chore). And brings up a button list if you're not replying to a task.\n\n- /snooze - doubles the bitch interval time for given chore for one bitch iteration.\n\n- /showdayschedule - shows all scheduled tasks for the day\n\n- /start - diplay welcome screen and message\n\nADMIN ONLY:\n- /stop - kill the updater.\n- /restart - reboot the bot when it becomes laggy")
     sendTelegramMessage(update, context, text)
 
@@ -118,6 +118,42 @@ def complete(update: Update, context):
                 chore.setStatusComplete()
                 sendTelegramMessage(update, context, chore.name + " complete")
 
+# /revert command
+def revert(update: Update, context):
+    print("Function: revert")
+    chores: list[Chore] = []
+    for day in schedule.getChoreDaysList(): 
+        chores += day.chores
+
+    if(update.message.reply_to_message is None):
+        sendTelegramMessage(update= update, context=context, message="You need to reply to the message that needs reverted.")
+        
+    else:
+        print("   ReplyToMessageId: " + str(update.message.reply_to_message.message_id))
+        for chore in chores:
+            if chore.replyToMessageId == None:
+                continue
+            elif chore.replyToMessageId == update.message.reply_to_message.message_id:
+                chore.setStatusIncomplete()
+
+                oldMessageID = ""
+                if chore.replyToMessageId:
+                    oldMessageID = chore.replyToMessageId
+
+                callback: CallBackQuery = CallBackQuery(TypeOfQueryEnum.COMPLETE, chore.id, None)
+                jsonCallback: str = json.dumps(callback.__dict__)
+                keyboard = [[
+                    InlineKeyboardButton(
+                        "complete", 
+                        callback_data=jsonCallback),
+                ]]
+                reply_markup = InlineKeyboardMarkup(keyboard, one_time_keyboard=True)
+                sentMessage = sendTelegramReplyMessage(update, context, chore.getPeopleAtString() + " " + chore.getEmojiString() + " " + " - " + chore.name, reply_markup)
+                chore.setLastSent()
+                chore.setReplyToMessageId(sentMessage.message_id)
+                if oldMessageID:
+                    context.bot.deleteMessage(message_id = oldMessageID, chat_id = update.message.chat_id)
+                
 # Handle reply for /complete command
 def button(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
@@ -228,16 +264,32 @@ def checkChores(update: Update, context: CallbackContext):
 
     # No bitch hours between 2 - 7 am
     if (datetime.now().time() > datetime(2022, 2, 7, 2, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 7, 0).time()) :
-        timeoutChores(update, context, chores)
         threading.Timer(60.0*5, checkChores, args=(update, context)).start()
+        print("Starting no bitch hours, will start bitching again in 5 hours")
+        return
+    
+    # At the beginning of the next day timeout daily chores
+    if (datetime.now().time() > datetime(2022, 2, 7, 7, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 7, 25).time()) :
+        print("timing out daily chores and marking them incomplete")
+        timeoutChores(update, context, chores)
         return
 
 
+    print("Checking chores: ")
+    haveIncompleteChores = False
     for chore in chores:
+
         if chore.status == ChoreStatusEnum.COMPLETE:
             continue
+        else :
+            haveIncompleteChores = True
+
+        oldMessageID = ""
+        if chore.replyToMessageId:
+            oldMessageID = chore.replyToMessageId
 
         if chore.lastSent == None:
+            print(str(chore.id) + " - " + chore.name + ": " + "/" + str(chore.reminderIntervalMinutes))
             if datetime(2022, 2, 7, chore.startTime.hour, chore.startTime.minute).time() < datetime.now().time():
                 if(chore.firstSent == None):
                     chore.setFirstSent(datetime.now())
@@ -251,9 +303,11 @@ def checkChores(update: Update, context: CallbackContext):
                         callback_data=jsonCallback),
                 ]]
                 reply_markup = InlineKeyboardMarkup(keyboard, one_time_keyboard=True)
-                sentMessage = sendTelegramReplyMessage(update, context, chore.getPeopleAtString() + " - " + chore.name, reply_markup)
+                sentMessage = sendTelegramReplyMessage(update, context, chore.getPeopleAtString() + " " + chore.getEmojiString() + " " + " - " + chore.name, reply_markup)
                 chore.setLastSent()
                 chore.setReplyToMessageId(sentMessage.message_id)
+                if oldMessageID:
+                    context.bot.deleteMessage(message_id = oldMessageID, chat_id = update.message.chat_id)
         elif chore.isBitchable():
             print(str(chore.id) + " - " + chore.name + ": " + str(chore.lastSent) + "/" + str(chore.reminderIntervalMinutes))
             if chore.status == ChoreStatusEnum.SNOOZE:
@@ -269,9 +323,15 @@ def checkChores(update: Update, context: CallbackContext):
                     callback_data=jsonCallback),
             ]]
             reply_markup = InlineKeyboardMarkup(keyboard, one_time_keyboard=True)
-            sentMessage = sendTelegramReplyMessage(update, context, chore.getPeopleAtString() + " - " + chore.name, reply_markup)
+            sentMessage = sendTelegramReplyMessage(update, context, chore.getPeopleAtString() + " " + chore.getEmojiString() + " " + " - " + chore.name, reply_markup)
             chore.setLastSent()
             chore.setReplyToMessageId(sentMessage.message_id)
+            if oldMessageID:
+                context.bot.deleteMessage(message_id = oldMessageID, chat_id = update.message.chat_id)
+
+    if(not haveIncompleteChores) :
+        schedule.weeks = []
+        schedule.loadWeeksWithChoreDays()
 
     threading.Timer(60.0*5, checkChores, args=(update, context)).start()
 
@@ -329,6 +389,9 @@ def main():
 
     complete_handler = CommandHandler('complete', complete)
     dispatcher.add_handler(complete_handler)
+
+    revert_handler = CommandHandler('revert', revert)
+    dispatcher.add_handler(revert_handler)
 
     complete_button_handler = CallbackQueryHandler(button)
     dispatcher.add_handler(complete_button_handler)

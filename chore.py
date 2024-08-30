@@ -92,7 +92,20 @@ class Chore:
         for person in self.people:
             returnString += "@" + person + " "
         return returnString
+    
+    def getEmojiString(self) -> str:
+        returnString = ""
+        for person in self.people:
+            if person == UserNamesEnum.Luke:
+                returnString += "⚡️"
+            if person == UserNamesEnum.James:
+                returnString += "👽"
+            if person == UserNamesEnum.Jake:
+                returnString += "🍄"
+            if person == UserNamesEnum.Nat:
+                returnString += "👾"
+        return returnString
 
     def getChoreString(self) -> str:
         time: str = str(self.startTime.hour) + ":" + str(self.startTime.minute)
-        return "[" + time + "] <" + self.status[0] + ">: " + self.getPeopleShortHandString() + " - " + self.name
+        return "[" + time + "] <" + self.status[0] + ">: " + self.getPeopleShortHandString() + " " + self.getEmojiString() + " " + " - " + self.name
