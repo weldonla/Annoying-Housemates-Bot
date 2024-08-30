@@ -264,13 +264,14 @@ def checkChores(update: Update, context: CallbackContext):
 
     # No bitch hours between 2 - 7 am
     if (datetime.now().time() > datetime(2022, 2, 7, 2, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 7, 0).time()) :
-        threading.Timer(60.0*5, checkChores, args=(update, context)).start()
+        threading.Timer(60.0*5*60, checkChores, args=(update, context)).start()
         print("Starting no bitch hours, will start bitching again in 5 hours")
         return
     
     # At the beginning of the next day timeout daily chores
     if (datetime.now().time() > datetime(2022, 2, 7, 7, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 7, 25).time()) :
-        print("timing out daily chores and marking them incomplete")
+        threading.Timer(60.0*5, checkChores, args=(update, context)).start()
+        print("timing out daily chores and marking them complete")
         timeoutChores(update, context, chores)
         return
 
