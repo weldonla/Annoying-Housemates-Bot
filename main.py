@@ -262,14 +262,14 @@ def checkChores(update: Update, context: CallbackContext):
     for day in schedule.getChoreDaysList(): 
         chores += day.chores
 
-    # No bitch hours between 2 - 7 am
-    if (datetime.now().time() > datetime(2022, 2, 7, 2, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 7, 0).time()) :
-        threading.Timer(60.0*5*60, checkChores, args=(update, context)).start()
-        print("Starting no bitch hours, will start bitching again in 5 hours")
+    # No bitch hours between 2 - 6 am
+    if (datetime.now().time() > datetime(2022, 2, 7, 2, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 6, 0).time()) :
+        threading.Timer(60.0*4*60, checkChores, args=(update, context)).start()
+        print("Starting no bitch hours, will start bitching again in 4 hours")
         return
     
     # At the beginning of the next day timeout daily chores
-    if (datetime.now().time() > datetime(2022, 2, 7, 7, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 7, 25).time()) :
+    if (datetime.now().time() > datetime(2022, 2, 7, 6, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 6, 20).time()) :
         threading.Timer(60.0*5, checkChores, args=(update, context)).start()
         print("timing out daily chores and marking them complete")
         timeoutChores(update, context, chores)
