@@ -4,6 +4,7 @@ class Day:
     index: int = None
     name: str = None 
     chores: list[Chore] = None
+    dayComplete: bool = False
 
     def __init__(self, index: int, name: str):
         self.index = index
@@ -23,3 +24,6 @@ class Day:
             returnString += chore.getChoreString() + "\n\n"
 
         return returnString
+    
+    def completeDay(self):
+        self.dayComplete = True

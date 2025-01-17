@@ -9,7 +9,6 @@ from week import Week
 
 class Schedule:
     weeks: list[Week] = None
-    dailies: list[Chore]
     chatId: any = None
     
     def __init__(self, weeks: list[Week] = None):

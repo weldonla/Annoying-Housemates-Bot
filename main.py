@@ -255,6 +255,13 @@ def snooze(update: Update, context: CallbackContext):
 #####################################################################################
 # Routines
 #####################################################################################
+def checkEndOfChores() -> bool:
+    allDaysComplete = True
+    for week in schedule.weeks:
+        for day in week.days:
+            if not day.completeDay:
+                allDaysComplete = False
+    return allDaysComplete
 
 def checkChores(update: Update, context: CallbackContext):
     chores: list[Chore] = []
@@ -266,6 +273,8 @@ def checkChores(update: Update, context: CallbackContext):
     if (datetime.now().time() > datetime(2022, 2, 7, 2, 0).time() and datetime.now().time() < datetime(2022, 2, 7, 6, 0).time()) :
         threading.Timer(60.0*4*60, checkChores, args=(update, context)).start()
         print("Starting no bitch hours, will start bitching again in 4 hours")
+        for day in schedule.getChoreDaysList():
+            day.completeDay = True
         return
     
     # At the beginning of the next day timeout daily chores
@@ -273,6 +282,9 @@ def checkChores(update: Update, context: CallbackContext):
         threading.Timer(60.0*5, checkChores, args=(update, context)).start()
         print("timing out daily chores and marking them complete")
         timeoutChores(update, context, chores)
+        if checkEndOfChores():
+            schedule.weeks = []
+            schedule.loadWeeksWithChoreDays()
         return
 
 
