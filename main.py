@@ -171,7 +171,7 @@ def button(update: Update, context: CallbackContext) -> None:
             if(chore.id == callback.choreId):
                 chore.setStatusComplete()
                 query.answer()
-                query.edit_message_text(text=f"Completed Chore: {chore.name} ({update.effective_user.first_name} @ {datetime.now().strftime('%I:%M %p')})")
+                query.edit_message_text(text=f"Completed Chore: {chore.id} {chore.name} ({update.effective_user.first_name} @ {datetime.now().strftime('%I:%M %p')})")
                 print("   Chore: " + chore.getChoreString())
 
     if callback.typeOfQuery == TypeOfQueryEnum.SNOOZE:
@@ -181,7 +181,7 @@ def button(update: Update, context: CallbackContext) -> None:
                 chore.setSnoozeDuration(callback.data)
                 query.answer()
                 query.edit_message_text(text=f"Snoozing Chore: {chore.name} for {callback.data} hours")
-                print("   Chore: " + chore.getChoreString())
+                print(f"   Chore: {chore.id} : " + chore.getChoreString())
 
 def customCallbackDecoder(callbackDict):
     return namedtuple('X', callbackDict.keys())(*callbackDict.values())
@@ -277,13 +277,10 @@ def checkChores(update: Update, context: CallbackContext):
 
 
     print("Checking chores: ")
-    haveIncompleteChores = False
     for chore in chores:
 
         if chore.status == ChoreStatusEnum.COMPLETE:
             continue
-        else :
-            haveIncompleteChores = True
 
         oldMessageID = ""
         if chore.replyToMessageId:
@@ -329,10 +326,6 @@ def checkChores(update: Update, context: CallbackContext):
             chore.setReplyToMessageId(sentMessage.message_id)
             if oldMessageID:
                 context.bot.deleteMessage(message_id = oldMessageID, chat_id = update.message.chat_id)
-
-    if(not haveIncompleteChores) :
-        schedule.weeks = []
-        schedule.loadWeeksWithChoreDays()
 
     threading.Timer(60.0*5, checkChores, args=(update, context)).start()
 
