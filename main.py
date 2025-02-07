@@ -283,6 +283,7 @@ def checkChores(update: Update, context: CallbackContext):
         print("timing out daily chores and marking them complete")
         timeoutChores(update, context, chores)
         if checkEndOfChores():
+            print("All days complete, restarting two week schedule")
             schedule.weeks = []
             schedule.loadWeeksWithChoreDays()
         return

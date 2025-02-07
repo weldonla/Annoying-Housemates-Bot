@@ -41,8 +41,8 @@ class Schedule:
                         Chore(idBase + 7, [UserNamesEnum.Luke], ChoreListEnum.FEED_CATS, datetime(2022, 2, 7, (5 + 12), 00).time(), 60, True),
                         Chore(idBase + 8, [UserNamesEnum.Luke], ChoreListEnum.FEED_BEAR_DINNER, datetime(2022, 2, 7, (5 + 12), 00).time(), 60, True),
                         Chore(idBase + 9, [UserNamesEnum.Luke], ChoreListEnum.WATER_BEAR, datetime(2022, 2, 7, (5 + 12), 00).time(), 60, True),
-                        Chore(idBase + 10, [UserNamesEnum.Luke], ChoreListEnum.FEED_CHICKENS, datetime(2022, 2, 7, (5 + 12), 00).time(), 60, True),
-                        Chore(idBase + 11, [UserNamesEnum.Luke], ChoreListEnum.FEED_COWS, datetime(2022, 2, 7, (5 + 12), 00).time(), 60, True),
+                        # Chore(idBase + 10, [UserNamesEnum.Luke], ChoreListEnum.FEED_CHICKENS, datetime(2022, 2, 7, (5 + 12), 00).time(), 60, True),
+                        # Chore(idBase + 11, [UserNamesEnum.Luke], ChoreListEnum.FEED_COWS, datetime(2022, 2, 7, (5 + 12), 00).time(), 60, True),
 
                         #Jake
                         # Chore(idBase + 13, [
@@ -62,7 +62,7 @@ class Schedule:
                     ]
                 )
 
-                idBase += 11
+                idBase += 9
 
         # 1st Monday
         self.weeks[0].days[0].setChores(
